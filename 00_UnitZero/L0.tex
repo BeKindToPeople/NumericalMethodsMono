@@ -17,26 +17,49 @@ General First Order ODE:
 If p and g are constants we can solve this by seperation of variables:
 
 \begin{align*}
-    \frac{dy}{dt}+py&=g\\
-    \frac{dy}{dt}&= g-py\\
-    \frac{1}{g-py}dy&=1dt\\
-    \int{\frac{1}{g-py}}dy&=\int1dt\\
-    &\textcolor{blue}{u=g-py}\\
-    &\textcolor{blue}{du=-pdy\rightarrow dy=-\frac{du}{p}}\\
-    \int\frac{1}{u}\frac{-1}{p}du&=\int dt\\
-    -\frac{1}{p}ln|u|&=t+C\\
-    ln|u|&=(t+C)(-p)\\
-    ln|u|&=-tp+C\\
-    u&=e^{-tp+C}\\
-    &=e^{-tp}e^{C}\\
-    u&=e^{-tp}\textcolor{teal}{\mathbf{C_1}}\\
-    g-py&=e^{-tp}C_1\\
-    -py&=e^{-tp}C_1-g\\
-    y&=-\frac{e^{-tp}C_1-g}{p}\\
-    y&=-\frac{e^{-tp}C_1}{p}+\frac{g}{p}\\
-    y&=e^{-tp}\textcolor{teal}{\mathbf{C_2}}+\frac{g}{p}
-    \end{align*}
-Here $C_1$ and $C_2$ are arbitrary constants. We will use those for Initial Value problems (IVP) in the future.
+    \frac{dy}{dt} + py &= g \\
+    \frac{dy}{dt} &= g - py \\
+    \frac{1}{g - py} dy &= dt \\
+    \intertext{Integrate both sides:}
+    \int \frac{1}{g - py} dy &= \int 1 dt \\
+    \intertext{\textcolor{blue}{Substitution: Let $u = g - py \implies du = -p dy$}
+    \intertext{\textcolor{blue}{$\implies dy = -\frac{1}{p}du$}}}
+    \int \frac{1}{u} \left( -\frac{1}{p} \right) du &= t + C \\
+    -\frac{1}{p} \ln|u| &= t + C \\
+    \ln|u| &= -p(t + C) \\
+    \ln|u| &= -pt + C_{new} \quad \text{(where } C_{new} = -pC \text{)} \\
+    |u| &= e^{-pt + C_{new}} \\
+    u &= \pm e^{C_{new}} e^{-pt} \\
+    \intertext{Let $C_1 = \pm e^{C_{new}}$. Substitute back $u = g - py$:}
+    g - py &= C_1 e^{-pt} \\
+    -py &= C_1 e^{-pt} - g \\
+    y &= \frac{C_1 e^{-pt}}{-p} + \frac{-g}{-p} \\
+    \boxed{y(t) = C_2 e^{-pt} + \frac{g}{p}} &\quad \text{where } C_2 = -\frac{C_1}{p}
+\end{align*}
+
+\subsubsection*{Behavior Analysis}
+The solution consists of two distinct parts:
+\begin{equation*}
+    y(t) = \underbrace{C_2 e^{-pt}}_{\text{Transient Solution}} + \underbrace{\frac{g}{p}}_{\text{Steady State Solution}}
+\end{equation*}
+\begin{itemize}
+    \item \textbf{Transient:} If $p > 0$, this term decays to zero as $t \to \infty$.
+    \item \textbf{Steady State:} The value $y(t)$ approaches $\frac{g}{p}$ as time goes on.
+    \item \textbf{Stability:} If $p < 0$, the exponential term grows to infinity (Unstable).
+\end{itemize}
+
+\subsubsection*{Solving for the Initial Condition}
+Given an initial value $y(0) = y_0$, we can solve for $C_2$:
+\begin{align*}
+    y(0) &= C_2 e^{-p(0)} + \frac{g}{p} \\
+    y_0 &= C_2 (1) + \frac{g}{p} \\
+    C_2 &= y_0 - \frac{g}{p}
+\end{align*}
+Substituting this back into the general solution gives the specific solution:
+\begin{equation*}
+    \boxed{y(t) = \left( y_0 - \frac{g}{p} \right) e^{-pt} + \frac{g}{p}}
+\end{equation*}
+Remember, this is for a LINEAR 1ST ORDER ODE WITH CONSTANT COEFFICIENTS.
 
 \clearpage
 \subsection{Method of integrating Factors}
@@ -73,6 +96,7 @@ Now we can compare $\bigstar$ and $\Delta$
 
 
 
+
 \begin{tikzpicture}[overlay, remember picture]
     \draw[<-, >=Latex, red, thick] (qt.south) 
         |- ++(0.5, -0.8) % Moves down 0.8cm and right 0.5cm
@@ -87,6 +111,79 @@ Now we can compare $\bigstar$ and $\Delta$
         -- (turnPoint2 |- eq.west)  
         -- (eq.west);  % Go Right to the target
 \end{tikzpicture}
+
+\subsubsection*{Note on the Constant $C$}
+\begin{align*}
+    &\text{We can choose } C=1 \text{ because any constant cancels out.} \\
+    &\text{why:} \\
+    &\text{Let } \mu = C e^{\int p(t)dt}. \text{ Substitute into general solution:} \\
+    y(t) &= \frac{1}{C e^{\int p dt}} \Bigg[ \int C e^{\int p dt} q(t) dt + C_{int} \Bigg] \\
+    &\text{Factor out } C \text{ from the integral:} \\
+    y(t) &= \frac{1}{C e^{\int p dt}} \cdot C \Bigg[ \int e^{\int p dt} q(t) dt + \frac{C_{int}}{C} \Bigg] \\
+    &\text{Cancel the } C \text{ terms:} \\
+    y(t) &= \frac{1}{e^{\int p dt}} \Bigg[ \int e^{\int p dt} q(t) dt + C_{new} \Bigg] \\
+   &\text{ The constant } C \text{ in } \mu \text{ is redundant.}
+\end{align*}
+
+\subsubsection*{Big Must: Standard Form}
+\begin{align*}
+    &\text{The derivation assumes the coefficient of } \frac{dy}{dt} \text{ is } \mathbf{1}. \\
+    &\text{If given a general form:} \\
+    &a(t)\frac{dy}{dt} + b(t)y = g(t) \\
+    &\text{You \textbf{must} divide by } a(t) \text{ first:} \\
+    &\frac{dy}{dt} + \frac{b(t)}{a(t)}y = \frac{g(t)}{a(t)} \\
+    &\text{Identify your terms:} \\
+    &p(t) = \frac{b(t)}{a(t)}, \quad q(t) = \frac{g(t)}{a(t)}
+\end{align*}
+
+\subsubsection*{Algorithm Summary}
+\begin{align*}
+    1. \quad &\textbf{Standardize:} \\
+    &\text{Ensure } \frac{dy}{dt} \text{ has a coefficient of 1.} \\
+    2. \quad &\textbf{Identify:} \\
+    &\text{Find } p(t) \text{ and } q(t). \\
+    3. \quad &\textbf{Calculate } \boldsymbol{\mu}: \\
+    &\mu(t) = e^{\int p(t)dt} \quad (\text{ignore } +C). \\
+    4. \quad &\textbf{Solve:} \\
+    &y(t) = \frac{1}{\mu(t)} \Bigg[ \int \mu(t)q(t) dt + C \Bigg].
+\end{align*}
+
+\clearpage
+\subsection{2nd Order Linear Differential Equations}
+A general form of a 2nd order ODE:
+\begin{align*}
+    \frac{d^2y}{dt^2}&= f\Bigg(t,y,\frac{dy}{dt}\Bigg)\\
+    &\textbf{or}\\
+    F\Bigg(t,y,\frac{dy}{dt},\frac{d^2y}{dt^2}\Bigg)&=0
+\end{align*}
+
+\subsection*{A quick note of Implicit, Explicit and Homogeneity}
+When we say $F\Bigg(x,y,PB,Jelly,t,\frac{dy}{dt},\frac{d^2y}{dt^2}\Bigg)$, the \textbf{Container} F holds all combinations of said \\
+$x,y,PB,Jelly,t,\frac{dy}{dt},\frac{d^2y}{dt^2}$ that add add to \textcolor{red}{0}.
+Please note, this doesn't mean its \textcolor{red}{Homogeneous} in how its presented here. More on this in a little.\\
+\\
+For the other form:
+\begin{align*}
+    \frac{d^2y}{dt^2}&= f\Bigg(t,y,\frac{dy}{dt}\Bigg)
+\end{align*}
+Here we are saying, "if you give me current time, position and velocity, Ill be able to calculate acceleration"
+
+Back to \textbf{Homgeneous or not}.\\
+In the form $F\Bigg(t,y,\frac{dy}{dt},\frac{d^2y}{dt^2}\Bigg)=0$ we have only moved all things in the container to one side. Using my rediculosu example from before.\\
+Imagine an Implicit Function $F$ representing the ingredients of a lunch equation:
+\begin{align*}
+    F\Bigg(x, y, \text{PB}, \text{Jelly}, t, \frac{dy}{dt}, \frac{d^2y}{dt^2}\Bigg) &= 0
+\end{align*}
+This is \textbf{Implicit} because the ingredients are all mixed together in the bucket $F$.
+
+To check if it is \textbf{Homogeneous}, we try to isolate the sandwich mechanics ($y, y', y''$) from the external ingredients:
+\begin{align*}
+    \underbrace{\frac{d^2y}{dt^2} + p(t)\frac{dy}{dt} + q(t)y}_{\text{The Bread}} &= \underbrace{\text{PB} + \text{Jelly}}_{\text{External Forcing Function } f(t)}
+\end{align*}
+\begin{itemize}
+    \item If $\text{PB} = 0$ and $\text{Jelly} = 0$, the equation is \textbf{Homogeneous} (Just Bread).
+    \item If $\text{PB} \neq 0$ or $\text{Jelly} \neq 0$, the equation is \textbf{Non-Homogeneous} (A Sandwich exists).
+\end{itemize}
 
 
 \end{document}
