@@ -1,1 +1,84 @@
+\documentclass[11pt]{article}
+
+% This line looks for the preamble in the folder "next door"
+% It goes UP one level (..) then DOWN into (common)
+\input{CommonPreamble/CommonPreamble}
+
+\chead{00 : Intro and Review }
+
+\begin{document}
+
+\section{Review of Differential Equations}
+\subsection{Seperation of variables}
+General First Order ODE:
+\begin{align*}
+\frac{dy}{dt}+py &= g
+\end{align*}
+If p and g are constants we can solve this by seperation of variables:
+
+\begin{align*}
+    \frac{dy}{dt}+py&=g\\
+    \frac{dy}{dt}&= g-py\\
+    \frac{1}{g-py}dy&=1dt\\
+    \int{\frac{1}{g-py}}dy&=\int1dt\\
+    &\textcolor{blue}{u=g-py}\\
+    &\textcolor{blue}{du=-pdy\rightarrow dy=-\frac{du}{p}}\\
+    \int\frac{1}{u}\frac{-1}{p}du&=\int dt\\
+    -\frac{1}{p}ln|u|&=t+C\\
+    ln|u|&=(t+C)(-p)\\
+    ln|u|&=-tp+C\\
+    u&=e^{-tp+C}\\
+    &=e^{-tp}e^{C}\\
+    u&=e^{-tp}\textcolor{teal}{\mathbf{C_1}}\\
+    g-py&=e^{-tp}C_1\\
+    -py&=e^{-tp}C_1-g\\
+    y&=-\frac{e^{-tp}C_1-g}{p}\\
+    y&=-\frac{e^{-tp}C_1}{p}+\frac{g}{p}\\
+    y&=e^{-tp}\textcolor{teal}{\mathbf{C_2}}+\frac{g}{p}
+    \end{align*}
+Here $C_1$ and $C_2$ are arbitrary constants. We will use those for Initial Value problems (IVP) in the future.
+
+\clearpage
+\subsection{Method of integrating Factors}
+
+\begin{align*}
+    \tikzmarknode{eq}{\frac{dy}{dt}} + p(t)y &= \tikzmarknode{qt}{q(t)} 
+    \end{align*}
+
+Rewrite to match the form of :
+\begin{align*}
+    \tikzmarknode{matchE}{\frac{d}{dt}}\left(\mu(t)y\right)&=\mu(t)q(t)\\
+    \int\frac{d}{dt}\left(\mu(t)y\right)dt'&=\int_{0}^{T}\mu(t)q(t)dt'\\
+    \mu(t)y(t)-\mu(0)y(0)&=\int_{0}^{T}\mu(t')q(t')dt'\\
+    \mu(t)y(t)&=\int_{0}^{T}\mu(t')q(t')dt'+\mu(0)y(0)\\
+    y(t)&=\frac{1}{\mu(t)}\Bigg[\int_{0}^{T}\mu(t')q(t')dt'+\mu(0)y(0)\Bigg]\\
+\end{align*}
+To find $\mu$, we match both sides of the equation.
+\begin{align*}
+    \tikzmarknode{matchS}{\frac{d}{dt}}(\mu(t)y)&=\frac{d\mu}{dt}y+\mu \frac{dy}{dt}
+\end{align*}
+Multiply the original equation by $\mu$:
+\begin{align*}
+    \tikzmarknode{originals}{\mu}\Bigg(\frac{dy}{dt}+p(t)y&=q(t) \Bigg) \\
+    \mu\frac{dy}{dt}+\mu p(t)y&=\mu q(\\
+    
+\end{align*}
+
+\begin{tikzpicture}[overlay, remember picture]
+    \draw[<-, >=Latex, red, thick] (qt.south) 
+        |- ++(0.5, -0.8) % Moves down 0.8cm and right 0.5cm
+        node[right, text=black, font=\small] {Non Homog due to $q(t)$};
+
+         \draw[->, >=Latex, blue, thick, rounded corners] (matchS.west) 
+        -- ++(-2.8, 0) coordinate(turnPoint)      % Move Left 3cm, save this spot as 'turnPoint'
+        -- (turnPoint |- matchE.west)  % Go Up (keep x of turnPoint, get y of matchE)
+        -- (matchE.west);  % Go Right to the target
+        \draw[->, >=Latex, red, thick, rounded corners] (originals.west) 
+        -- ++(-3.2, 0) coordinate(turnPoint2)      % Move Left 3cm, save this spot as 'turnPoint'
+        -- (turnPoint2 |- eq.west)  % Go Up (keep x of turnPoint, get y of matchE)
+        -- (eq.west);  % Go Right to the target
+\end{tikzpicture}
+
+
+\end{document}
 
