@@ -55,13 +55,23 @@ Rewrite to match the form of :
 \end{align*}
 To find $\mu$, we match both sides of the equation.
 \begin{align*}
-    \tikzmarknode{matchS}{\frac{d}{dt}}\Bigg(\mu(t)y\Bigg)&=\frac{d\mu}{dt}y+\mu \frac{dy}{dt}
+    \tikzmarknode{matchS}{\frac{d}{dt}}\Bigg(\mu(t)y\Bigg)&=\frac{d\mu}{dt}y+\mu \frac{dy}{dt} \tag{$\bigstar$}
 \end{align*}
 Multiply the original equation by $\mu$:
 \begin{align*}
     \tikzmarknode{originals}{\mu}\Bigg(\frac{dy}{dt}+p(t)y&=q(t) \Bigg) \\
-    \mu\frac{dy}{dt}+\mu p(t)y&=\mu q(t)
+    \mu\frac{dy}{dt}+\mu p(t)y&=\mu q(t) \tag{$\Delta$}
 \end{align*}
+Now we can compare $\bigstar$ and $\Delta$
+
+\begin{align*}
+    \frac{d\mu}{dt}&=\mu p(t)\\
+    \frac{1}{\mu}d\mu&=p(t)dt\\
+    \mu&=\boxed{Ce^{\int p(t)dt}}
+\end{align*}
+
+
+
 
 \begin{tikzpicture}[overlay, remember picture]
     \draw[<-, >=Latex, red, thick] (qt.south) 
@@ -74,7 +84,7 @@ Multiply the original equation by $\mu$:
         -- (matchE.west);  % Go Right to the target
         \draw[->, >=Latex, red, thick, rounded corners] (originals.west) 
         -- ++(-3.2, 0) coordinate(turnPoint2)      % Move Left 3cm, save this spot as 'turnPoint'
-        -- (turnPoint2 |- eq.west)  % Go Up (keep x of turnPoint, get y of matchE)
+        -- (turnPoint2 |- eq.west)  
         -- (eq.west);  % Go Right to the target
 \end{tikzpicture}
 
