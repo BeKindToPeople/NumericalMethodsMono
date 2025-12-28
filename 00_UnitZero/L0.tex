@@ -167,7 +167,8 @@ For the other form:
     \frac{d^2y}{dt^2}&= f\Bigg(t,y,\frac{dy}{dt}\Bigg)
 \end{align*}
 Here we are saying, "if you give me current time, position and velocity, Ill be able to calculate acceleration"
-
+\\
+\\
 Back to \textbf{Homgeneous or not}.\\
 In the form $F\Bigg(t,y,\frac{dy}{dt},\frac{d^2y}{dt^2}\Bigg)=0$ we have only moved all things in the container to one side. Using my ridiculous example from before,\\
 \\
@@ -186,6 +187,23 @@ To check if it is \textbf{Homogeneous}, we try to isolate the sandwich mechanics
     \item If $\text{PB} \neq 0$ or $\text{Jelly} \neq 0$, the equation is \textbf{Non-Homogeneous} (A Sandwich exists).
 \end{itemize}
 
+\subsection*{The Linear Case}
+\begin{align*}
+    &\frac{d^2y}{dt^2}=g(t)-p(t)\frac{dy}{dt}-q(t)y\\
+    \intertext{if $g(t)=0$;}\\
+    &\frac{d^2y}{dt^2}+p(t)\frac{dy}{dt}+q(t)y=g(t)\\        &\frac{d^2y}{dt^2}+p(t)\frac{dy}{dt}+q(t)y=0\\
+    \intertext{This is now homogeneous and we can move forward with a characteristic equation.}\\
+\end{align*}
+\subsection*{The Characteristic Equation}
+\begin{align*}
+    \frac{d^2y}{dt^2}+p(t)\frac{dy}{dt}+q(t)y&=0\\
+    \intertext{change the $\frac{d}{dt}$ terms to r's}\\
+    r^2y+p(t)ry+q(t)r^0y=0\\
+    \intertext{we can now change the coefficients to manageable variables}\\
+    \Bigg[ar^2+br+c\Bigg]y=0\\
+    \underbrace{ar^2+br+c=0}_{\text{Characteristic equation}}\\
+    \intertext{$\rightarrow$ find the roots $r_1$ and $r_2$ of the characteristic}\\
+\end{align*}
 
 \end{document}
 
